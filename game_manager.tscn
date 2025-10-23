@@ -1,0 +1,174 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxculeuw4yvq0"]
+
+[ext_resource type="Script" uid="uid://d0tjd12npaidf" path="res://game.gd" id="1_70yv6"]
+[ext_resource type="PackedScene" uid="uid://bv2o6nmsyp8wh" path="res://timed_btn.tscn" id="2_smx3j"]
+
+[node name="GameManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_70yv6")
+hyperspeed_mode = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="---" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "- - - - - - - - - DIAGNOSTICS - - - - - - - - -"
+horizontal_alignment = 1
+
+[node name="EnergyCoreLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.901961, 0.968627, 1)
+text = "Energy Core:  40/40"
+horizontal_alignment = 1
+
+[node name="CorruptionLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.815686, 0, 0, 1)
+text = "Memory Corruption:  100%"
+horizontal_alignment = 1
+
+[node name="---2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "- - - - - - - - - DIAGNOSTICS - - - - - - - - -"
+horizontal_alignment = 1
+
+[node name="---3" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TrashLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Trash: #"
+
+[node name="PickupTrashBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Pick up"
+
+[node name="DisassembleBtn" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("game_manager") instance=ExtResource("2_smx3j")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disassemble"
+game_manager = NodePath("../../../../..")
+time = 5.0
+cost_var_name = "trash"
+cost_var_amount = 1
+gets_from_loot_table = "basic_trash"
+loot_table_rolls = 5
+
+[node name="IronContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="IronLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/IronContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Iron Scrap: #"
+
+[node name="CopperContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CopperLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CopperContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Copper Scrap: #"
+
+[node name="SiliconContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SiliconLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/SiliconContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Silicon: #"
+
+[node name="OilContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="OilLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/OilContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Oil: #"
+
+[node name="SolarPanelContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SolarPanelLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/SolarPanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Solar Panel: #"
+
+[node name="ConstructSolarPanelBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/SolarPanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Construct (# Silicon)"
+
+[node name="DisassemblerSpeedUpgrade1Container" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DisassemblerSpeedUpgrade1Btn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgrade1Container"]
+layout_mode = 2
+text = "Disassembler Speed Upgrade 1 (20oz Iron)"
+
+[node name="DisassemblerAmountUpgrade1Container" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DisassemblerAmountUpgrade1Btn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgrade1Container"]
+layout_mode = 2
+text = "Disassembler Amount Upgrade 1 (20oz Iron)"
+
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4/PickupTrashBtn" to="." method="_on_pickup_trash_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/SolarPanelContainer/ConstructSolarPanelBtn" to="." method="_on_construct_solar_panel_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgrade1Container/DisassemblerSpeedUpgrade1Btn" to="." method="_on_disassembler_speed_upgrade_1_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgrade1Container/DisassemblerAmountUpgrade1Btn" to="." method="_on_disassembler_amount_upgrade_1_btn_pressed"]

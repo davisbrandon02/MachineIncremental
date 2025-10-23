@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv2o6nmsyp8wh"]
+
+[ext_resource type="Script" uid="uid://cfrk324wlo1v1" path="res://timed_btn.gd" id="1_h5q1r"]
+
+[node name="TimedBtn" type="Button"]
+text = "Scavenge"
+flat = true
+alignment = 0
+script = ExtResource("1_h5q1r")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+value = 50.0
+fill_mode = 1
+show_percentage = false
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
