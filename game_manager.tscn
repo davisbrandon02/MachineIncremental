@@ -166,7 +166,7 @@ mouse_filter = 2
 
 [node name="DisassemblerAmountUpgrade1Btn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgrade1Container"]
 layout_mode = 2
-text = "Disassembler Amount Upgrade 1 (20oz Iron)"
+text = "Disassembler Amount Upgrade 1 (30oz Iron)"
 
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4/PickupTrashBtn" to="." method="_on_pickup_trash_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/SolarPanelContainer/ConstructSolarPanelBtn" to="." method="_on_construct_solar_panel_btn_pressed"]
