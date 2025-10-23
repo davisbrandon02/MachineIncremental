@@ -1,19 +1,20 @@
 class_name TimedButton
 extends Button
 
+# Any button that takes time before it completes.
+
 # Always call game manager to add things when done
 @export var game_manager: GameManager
 @export var time: float = 2.0
-@export var var_name: String = ""
-@export var change_amount: float = 1.0
-@export var cost_var_name: String = ""
-@export var cost_var_amount: int = 0
+@export var amount: int = 1
+@export var changes: Dictionary[String, float]
+@export var costs: Dictionary[String, float]
 
 # If this should get from a loot table, check here
 @export var gets_from_loot_table: String = ""
 @export var loot_table_rolls: int = 0
 
-# Any button that takes time before it completes.
+@export var can_run: bool = false
 var is_started: bool = false
 
 func _process(delta: float) -> void:
@@ -35,20 +36,22 @@ func update_time(new_time: float):
 	%Timer.wait_time = new_time
 
 func _on_timer_timeout() -> void:
-	if var_name != "":
-		game_manager.increase_var(var_name, change_amount)
+	if changes.size() > 0:
+		for key in changes:
+			if game_manager.has(key):
+				game_manager.increase_var(key, changes[key] * amount)
 	
 	if gets_from_loot_table != "" and loot_table_rolls > 0:
 		print("%s: Getting from loot table %s" % [name, gets_from_loot_table])
-		var loot: Dictionary = LootTables.get_weighted_returns(gets_from_loot_table, loot_table_rolls)
-		for i in loot.keys():
-			game_manager.increase_var(i, loot[i])
+		var loot: Dictionary = LootTables.get_weighted_returns(gets_from_loot_table, loot_table_rolls * amount)
+		game_manager.increase_vars_from_dict(loot)
 	
-	# Decrease cost
-	if cost_var_name != "" and cost_var_amount > 0:
-		game_manager.increase_var(cost_var_name, -cost_var_amount)
+	# Decrease cost items by amount
+	if costs.size() > 0:
+		for key in costs:
+			if key in game_manager:
+				game_manager.increase_var(key, -costs[key] * amount)
 
 func _on_pressed() -> void:
-	if cost_var_name in game_manager:
-		if game_manager.get(cost_var_name) >= cost_var_amount:
-			start()
+	if can_run and game_manager.costs_met(costs, amount) and amount > 0:
+		start()

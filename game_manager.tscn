@@ -29,8 +29,10 @@ theme_override_constants/margin_bottom = 20
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -64,77 +66,123 @@ horizontal_alignment = 1
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="TrashContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TrashLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
+[node name="TrashLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/TrashContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Trash: #"
+text = "Trash: 0"
 
-[node name="PickupTrashBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
+[node name="PickupTrashBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/TrashContainer"]
 layout_mode = 2
 text = "Pick up"
 
-[node name="DisassembleBtn" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("game_manager") instance=ExtResource("2_smx3j")]
+[node name="SortBtn" parent="MarginContainer/ScrollContainer/VBoxContainer/TrashContainer" node_paths=PackedStringArray("game_manager") instance=ExtResource("2_smx3j")]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Disassemble"
+text = "Sort"
 game_manager = NodePath("../../../../..")
-time = 5.0
-cost_var_name = "trash"
-cost_var_amount = 1
+time = 3.0
+costs = Dictionary[String, float]({
+"trash": 1.0
+})
 gets_from_loot_table = "basic_trash"
 loot_table_rolls = 5
+can_run = true
 
-[node name="IronContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="ScrapMetalContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="IronLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/IronContainer"]
+[node name="ScrapMetalLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ScrapMetalContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Iron Scrap: #"
+text = "Metal scrap: 0oz"
 
-[node name="CopperContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="PlasticContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CopperLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/CopperContainer"]
+[node name="PlasticLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/PlasticContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Copper Scrap: #"
+text = "Plastic: 0oz"
 
-[node name="SiliconContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="WiresContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="SiliconLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/SiliconContainer"]
+[node name="WiresLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/WiresContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Silicon: #"
+text = "Wires: 0oz"
 
 [node name="OilContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="OilLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/OilContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Oil: #"
+text = "Oil: 0ml"
+
+[node name="SmelterContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SmelterLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/SmelterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Smelters: 0"
+
+[node name="ConstructSmelterBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/SmelterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Construct (30 Metal scrap)"
+
+[node name="SmeltBtn" parent="MarginContainer/ScrollContainer/VBoxContainer/SmelterContainer" node_paths=PackedStringArray("game_manager") instance=ExtResource("2_smx3j")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Smelt"
+game_manager = NodePath("../../../../..")
+amount = 0
+changes = Dictionary[String, float]({
+"metal_bars": 1.0
+})
+costs = Dictionary[String, float]({
+"oil": 1.0,
+"scrap_metal": 5.0
+})
+
+[node name="DisassemblerSpeedUpgradeContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DisassemblerSpeedUpgradeBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disassembler Speed Upgrade 1 (20oz Metal bar)"
+
+[node name="DisassemblerAmountUpgradeContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DisassemblerAmountUpgradeBtn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disassembler Amount Upgrade 1 (30oz Iron)"
 
 [node name="SolarPanelContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -148,27 +196,18 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Construct (# Silicon)"
 
-[node name="DisassemblerSpeedUpgrade1Container" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="MetalBarsContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="DisassemblerSpeedUpgrade1Btn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgrade1Container"]
-layout_mode = 2
-text = "Disassembler Speed Upgrade 1 (20oz Iron)"
-
-[node name="DisassemblerAmountUpgrade1Container" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="MetalBarsLbl" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/MetalBarsContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-mouse_filter = 2
+text = "Metal bars: 0"
 
-[node name="DisassemblerAmountUpgrade1Btn" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgrade1Container"]
-layout_mode = 2
-text = "Disassembler Amount Upgrade 1 (30oz Iron)"
-
-[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer4/PickupTrashBtn" to="." method="_on_pickup_trash_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/TrashContainer/PickupTrashBtn" to="." method="_on_pickup_trash_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/SmelterContainer/ConstructSmelterBtn" to="." method="_on_construct_smelter_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgradeContainer/DisassemblerSpeedUpgradeBtn" to="." method="_on_disassembler_speed_upgrade_1_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgradeContainer/DisassemblerAmountUpgradeBtn" to="." method="_on_disassembler_amount_upgrade_1_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/SolarPanelContainer/ConstructSolarPanelBtn" to="." method="_on_construct_solar_panel_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerSpeedUpgrade1Container/DisassemblerSpeedUpgrade1Btn" to="." method="_on_disassembler_speed_upgrade_1_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/DisassemblerAmountUpgrade1Container/DisassemblerAmountUpgrade1Btn" to="." method="_on_disassembler_amount_upgrade_1_btn_pressed"]

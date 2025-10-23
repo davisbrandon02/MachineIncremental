@@ -3,9 +3,9 @@ extends Node
 
 # Database holding the loot tables
 var basic_trash: Dictionary = {
-	"iron": 8,
-	"silicon": 2,
-	"copper": 5,
+	"plastic": 5,
+	"scrap_metal": 5,
+	"wires": 2,
 	"oil": 2,
 }
 
